@@ -26,5 +26,5 @@ export type FormFieldType = {
   inputPlaceholder?: string;
   required?: boolean;
   pattern?: RegExp;
-  type?: React.HTMLInputTypeAttribute;
+  type?: React.HTMLInputTypeAttribute | "textarea";
 };

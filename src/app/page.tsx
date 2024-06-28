@@ -14,7 +14,7 @@ export default function Home() {
             <PiListBulletsBold size={20} />
             <Link
               href="/queries"
-              className="flex items-center gap-1 text-center text-sm md:text-base"
+              className="flex items-center gap-1 text-left text-sm md:text-base"
             >
               <i>/queries</i> -{" "}
               <div className="underline">
@@ -27,7 +27,7 @@ export default function Home() {
             <BiEditAlt size={22} />
             <Link
               href="/mutations"
-              className="flex items-center gap-1 text-center text-sm md:text-base"
+              className="flex items-center gap-1 text-left text-sm md:text-base"
             >
               <i>/mutations</i> -{" "}
               <div className="underline">

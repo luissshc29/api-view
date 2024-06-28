@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { FormFieldType } from "@/utils/Types";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Label } from "@/components/ui/label";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import { getOperationName, isQueryOperation } from "@apollo/client/utilities";
 import CommonTable from "./CommonTable";
+import { Textarea } from "@/components/ui/textarea";
 
 interface FormProps {
   buttonContent: React.ReactNode;
@@ -87,13 +88,8 @@ export default function TableForm({
     let variableObject = {
       variables: {},
     };
-
-    if (Object.keys(filterObject).length > 0) {
-      Object.assign(variableObject.variables, { filter: filterObject });
-    }
-    if (Object.keys(dataObject).length > 0) {
-      Object.assign(variableObject.variables, { data: dataObject });
-    }
+    Object.assign(variableObject.variables, { filter: filterObject });
+    Object.assign(variableObject.variables, { data: dataObject });
 
     // Operation called
     operation(variableObject);
@@ -103,7 +99,7 @@ export default function TableForm({
     <div className="flex flex-col">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 my-4 w-[45%]"
+        className="flex flex-col gap-4 my-4 w-full"
         {...rest}
       >
         {fields.map((field) => (
@@ -111,16 +107,36 @@ export default function TableForm({
             <Label htmlFor={field.fieldName} className="text-md">
               {field.inputLabel}
             </Label>
-            <Input
-              {...register(field.fieldName, {
-                required: field.required,
-                pattern: field.pattern,
-              })}
-              type={field.type}
-              id={field.fieldName}
-              placeholder={field.inputPlaceholder}
-              maxLength={191}
-            />
+            {field.type === "textarea" ? (
+              <div className="flex flex-col items-start gap-1">
+                <Textarea
+                  {...register(field.fieldName, {
+                    required: field.required,
+                    pattern: field.pattern,
+                  })}
+                  id={field.fieldName}
+                  placeholder={field.inputPlaceholder}
+                  maxLength={191}
+                  className="w-full md:w-2/3"
+                />
+                <p className="text-neutral-400 text-xs md:text-sm">
+                  Max.: 191 characters
+                </p>
+              </div>
+            ) : (
+              <Input
+                {...register(field.fieldName, {
+                  required: field.required,
+                  pattern: field.pattern,
+                })}
+                type={field.type}
+                min={1}
+                id={field.fieldName}
+                placeholder={field.inputPlaceholder}
+                maxLength={191}
+                className="w-full md:w-2/3"
+              />
+            )}
           </div>
         ))}
         <Button

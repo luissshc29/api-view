@@ -74,7 +74,7 @@ export default function QueriesPage() {
   `;
 
   return (
-    <div className="mx-auto md:px-8 pt-6 pb-16 w-4/5 min-h-screen">
+    <div className="mx-auto md:px-8 py-6 w-4/5">
       <div className="flex flex-col gap-2 mb-12 text-blue-600 text-md text-sm md:text-base underline">
         <div className="flex items-center gap-2">
           <TiHomeOutline size={20} />

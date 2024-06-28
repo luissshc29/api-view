@@ -145,6 +145,7 @@ export const formFields: {
           inputLabel: "Post body*",
           inputPlaceholder: "E.g.: Dolor sit amet",
           required: true,
+          type: "textarea",
         },
         {
           fieldName: "userId",
@@ -171,6 +172,7 @@ export const formFields: {
           fieldName: "body",
           inputLabel: "New Post body",
           inputPlaceholder: "E.g.: Post body",
+          type: "textarea",
         },
       ],
       delete: [
