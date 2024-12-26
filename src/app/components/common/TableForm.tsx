@@ -57,12 +57,11 @@ export default function TableForm({
   } = useForm<any>();
 
   const onSubmit: SubmitHandler<any> = (data) => {
-    const keys = Object.keys(data);
+    const keys = data ? Object.keys(data) : null;
 
     // Separating all 'filter' variables given
     let filterObject = {};
-
-    if (keys.includes("id")) {
+    if (keys && keys.includes("id")) {
       for (let i = 0; i < keys.length; i++) {
         if (keys[i] === "id") {
           filterObject = { id: Number(data[keys[i]]) };
@@ -72,15 +71,17 @@ export default function TableForm({
 
     // Separating all 'data' variables given
     let dataObject: any = {};
-    for (let i = 0; i < keys.length; i++) {
-      if (keys[i] !== "id") {
-        const key = keys[i];
-        if (data[key] !== "") {
-          dataObject = { ...dataObject, [key]: data[key] };
+    if (keys) {
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] !== "id") {
+          const key = keys[i];
+          if (data[key] !== "") {
+            dataObject = { ...dataObject, [key]: data[key] };
+          }
         }
       }
     }
-
+    
     // Turning userId key on dataObject from 'string' to 'number', in case it exists
     if (dataObject.userId) dataObject.userId = Number(dataObject.userId);
 
